@@ -8,10 +8,10 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class MyDate {
-    private int day;
-    private int month;
-    private int year;
+public class MyDate implements Comparable {
+    private final int day;
+    private final int month;
+    private final int year;
 
     public static final Map DAYS_MONTHS_MAPPING;
     public static final List LEAP_YEARS;
@@ -64,7 +64,7 @@ public class MyDate {
         return (day > 28 && month == 2) || month > 2;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         if (year < 1901 || year > 2999) {
             return false;
         }
@@ -72,10 +72,7 @@ public class MyDate {
             return false;
         }
         final int dayForMonth = (Integer) DAYS_MONTHS_MAPPING.get(month);
-        if (day < 1 || day > 31 || day > dayForMonth) {
-            return false;
-        }
-        return true;
+        return !(day < 1 || day > 31 || day > dayForMonth);
     }
 
     public static MyDate parse(final String date) throws ParseException {
@@ -99,9 +96,8 @@ public class MyDate {
 
         if (day != that.day) return false;
         if (month != that.month) return false;
-        if (year != that.year) return false;
+        return year == that.year;
 
-        return true;
     }
 
     @Override
@@ -110,5 +106,25 @@ public class MyDate {
         result = 31 * result + month;
         result = 31 * result + year;
         return result;
+    }
+
+    @Override
+    public int compareTo(final Object o) {
+        if (this == o) return 0;
+        if (!(o instanceof MyDate)) return 1;
+        final MyDate that = (MyDate) o;
+        if(that.year > this.year) return -1;
+        if (this.year == that.year) {
+            if (this.month < that.month) {
+                return -1;
+            } else if (this.month == that.month) {
+                if (this.day < that.day) {
+                    return -1;
+                }
+                return 1;
+            }
+            return 1;
+        }
+        return 1;
     }
 }

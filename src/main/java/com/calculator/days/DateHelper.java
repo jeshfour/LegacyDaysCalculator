@@ -10,7 +10,7 @@ public class DateHelper {
         if (startDate.equals(endDate)) {
             return 0l;
         }
-        if (startDate.getYear() > endDate.getYear()) {
+        if (startDate.compareTo(endDate) > 0) {
             return (getDaysFor(startDate) - getDaysFor(endDate) - 1) + getAdditionalLeapYearDays(endDate, startDate);
         }
         return (getDaysFor(endDate) - getDaysFor(startDate) - 1) + getAdditionalLeapYearDays(startDate, endDate);
