@@ -113,18 +113,11 @@ public class MyDate implements Comparable {
         if (this == o) return 0;
         if (!(o instanceof MyDate)) return 1;
         final MyDate that = (MyDate) o;
-        if(that.year > this.year) return -1;
-        if (this.year == that.year) {
-            if (this.month < that.month) {
-                return -1;
-            } else if (this.month == that.month) {
-                if (this.day < that.day) {
-                    return -1;
-                }
-                return 1;
-            }
-            return 1;
-        }
+        if (that.year > this.year) return -1;
+        else if (this.year > that.year) return 1;
+        else if (this.month < that.month) return -1;
+        else if (that.month < this.month) return 1;
+        else if (this.day < that.day) return -1;
         return 1;
     }
 }
