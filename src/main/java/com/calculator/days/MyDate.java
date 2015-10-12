@@ -91,13 +91,8 @@ public class MyDate implements Comparable {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (!(o instanceof MyDate)) return false;
-
         final MyDate that = (MyDate) o;
-
-        if (day != that.day) return false;
-        if (month != that.month) return false;
-        return year == that.year;
-
+        return day == that.day && month == that.month && year == that.year;
     }
 
     @Override
