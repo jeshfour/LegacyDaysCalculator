@@ -1,26 +1,12 @@
 package com.calculator.days;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.calculator.days.CustomDate.DAYS_FOR_MONTH_MAPPING;
+import static com.calculator.days.MyDate.DAYS_MONTHS_MAPPING;
+import static com.calculator.days.MyDate.LEAP_YEARS;
 
 public class DateHelper {
 
-    private static final List leapYears;
 
-    static {
-        leapYears = new ArrayList<Integer>(); // build leap years between 1900 and 3000
-        for (int year = 1900; year < 3000; year = 4 + year) {
-            if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
-                leapYears.add(year);
-            }
-        }
-
-
-    }
-
-    public static long getDaysBetween(final CustomDate startDate, final CustomDate endDate) {
+    public static long getDaysBetween(final MyDate startDate, final MyDate endDate) {
         if (startDate.equals(endDate)) {
             return 0l;
         }
@@ -38,15 +24,15 @@ public class DateHelper {
      * @param endDate
      * @return
      */
-    private static int getAdditionalLeapYearDays(final CustomDate startDate,
-                                                 final CustomDate endDate) {
+    private static int getAdditionalLeapYearDays(final MyDate startDate,
+                                                 final MyDate endDate) {
         int i = 0;
         final int offsetStart = startDate.isAfterFeb() ? 1 : 0;
         final int offsetEnd = endDate.isAfterFeb() ? 1 : 0;
         final int startYearValue = offsetStart + startDate.getYear();
         final int endYearValue = offsetEnd + endDate.getYear();
         for (int year = startYearValue; year < endYearValue; year++) {
-            i = i + (leapYears.contains(year) ? 1 : 0);
+            i = i + (LEAP_YEARS.contains(year) ? 1 : 0);
         }
         return i;
     }
@@ -57,7 +43,7 @@ public class DateHelper {
      * @param date
      * @return
      */
-    private static long getDaysFor(final CustomDate date) {
+    private static long getDaysFor(final MyDate date) {
         long days = 0l;
         for (int i = 1900; i < date.getYear(); i++) {
             days = days + 365;
@@ -77,7 +63,7 @@ public class DateHelper {
                                                final int days) {
         long totalDays = 0l;
         for (int i = 1; i < month; i++) {
-            totalDays = totalDays + (Integer) DAYS_FOR_MONTH_MAPPING.get(i);
+            totalDays = totalDays + (Integer) DAYS_MONTHS_MAPPING.get(i);
         }
         return totalDays + days;
     }

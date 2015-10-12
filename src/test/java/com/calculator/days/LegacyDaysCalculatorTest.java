@@ -145,8 +145,8 @@ public class LegacyDaysCalculatorTest {
 
     @Test(expected = ParseException.class)
     public void shouldThrowParseExceptionIfBothDatesAreOutOfRange() throws Exception {
-        for (final String startDate : asList("02/03/1800", "31/12/1899", "1/1/3000")) {
-            for (final String endDate : asList("02/03/1800", "31/12/1899", "1/1/3000")) {
+        for (final String startDate : asList("02/03/1800", "31/12/1899", "31/12/1900", "1/1/3000")) {
+            for (final String endDate : asList("02/03/1800", "31/12/1899", "31/12/1900", "1/1/3000")) {
                 final LegacyDaysCalculator legacyDaysCalculator = new LegacyDaysCalculator(startDate, endDate);
                 legacyDaysCalculator.getDays();
             }

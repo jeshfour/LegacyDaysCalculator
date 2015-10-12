@@ -2,7 +2,7 @@ package com.calculator.days;
 
 import java.text.ParseException;
 
-import static com.calculator.days.CustomDate.parse;
+import static com.calculator.days.MyDate.parse;
 import static com.calculator.days.DateHelper.getDaysBetween;
 
 public class LegacyDaysCalculator {
@@ -18,8 +18,8 @@ public class LegacyDaysCalculator {
         if (startDateStr == null || endDateStr == null) {
             throw new IllegalArgumentException("Input is not valid: " + startDateStr + ", " + endDateStr);
         }
-        final CustomDate startDate = parse(startDateStr);
-        final CustomDate endDate = parse(endDateStr);
+        final MyDate startDate = parse(startDateStr);
+        final MyDate endDate = parse(endDateStr);
         return getDaysBetween(startDate, endDate);
     }
 }
